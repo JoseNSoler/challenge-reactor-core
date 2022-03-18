@@ -71,7 +71,7 @@ public class CSVUtilTest {
         Flux<Player> listFlux = Flux.fromStream(list.parallelStream()).cache();
 
         Mono<Map<String, Collection<Player>>> listFilter = listFlux
-                .filter(player -> player.club.equals("Athletic Club de Bilbao") && player.age >= 34)
+                .filter(player -> player.club.equals("Athletic Club de Bilbao") && player.getAge() >= 34)
                 .distinct()
                 .collectMultimap(Player::getClub);
 
@@ -79,11 +79,38 @@ public class CSVUtilTest {
 
         listFilter.block().forEach((equipo, players) -> {
             players.forEach(player -> {
-                System.out.println("Nombre Jugador: " + player.getName() + "\nEdad Jugador: " + player.getAge() + " años" +"\nClub: " + player.getClub());
+                System.out.println("Nombre: " + player.getName() + "\nEdad: " + player.getAge() + " años" +"\nClub: " + player.getClub());
                 assert player.club.equals("Athletic Club de Bilbao");
 
-                Assertions.assertEquals(37, player.age);
+                Assertions.assertEquals(37, player.getAge());
             });
+        });
+
+    }
+
+    //
+    @Test
+    void reactive_filtrarPorNacionYFiltrarRanked() {
+        List<Player> list = CsvUtilFile.getPlayers();
+        Flux<Player> listFlux = Flux.fromStream(list.parallelStream()).cache();
+        Mono<Map<String, Collection<Player>>> listFilter = listFlux
+                .buffer(100)
+                .flatMap(player1 -> listFlux
+                        .filter(player2 -> player1.stream()
+                                .anyMatch(a -> a.getNational().equals(player2.getNational())))
+                ).distinct()
+                .sort((k, player) -> player.getWinners())
+                .collectMultimap(Player::getNational);
+
+        System.out.println("Filtro Por naciones: ");
+        System.out.println(listFilter.block().size());
+        listFilter.block().forEach((pais, players) -> {
+            System.out.println("Pais: " + pais + "\n{");
+            players.forEach(player -> {
+                System.out.println("- Nombre: " + player.getName() +
+                        "\n- victorias: " + player.getWinners() + "\n- Club: " + player.getClub());
+            });
+            System.out.println("}");
         });
     }
 
