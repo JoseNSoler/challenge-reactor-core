@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -62,6 +63,31 @@ public class CSVUtilTest {
 
         assert listFilter.block().size() == 322;
     }
+
+    // Test para encontrar jugadores mayores de 34 años pertenecientes a cierto club
+    @Test
+    void reactive_filtrarJugadoresMayoresA34(){
+        List<Player> list = CsvUtilFile.getPlayers();
+        Flux<Player> listFlux = Flux.fromStream(list.parallelStream()).cache();
+
+        Mono<Map<String, Collection<Player>>> listFilter = listFlux
+                .filter(player -> player.club.equals("Athletic Club de Bilbao") && player.age >= 34)
+                .distinct()
+                .collectMultimap(Player::getClub);
+
+        System.out.println(listFilter.block().size());
+
+        listFilter.block().forEach((equipo, players) -> {
+            players.forEach(player -> {
+                System.out.println("Nombre Jugador: " + player.getName() + "\nEdad Jugador: " + player.getAge() + " años" +"\nClub: " + player.getClub());
+                assert player.club.equals("Athletic Club de Bilbao");
+
+                Assertions.assertEquals(37, player.age);
+            });
+        });
+    }
+
+
 
 
 
