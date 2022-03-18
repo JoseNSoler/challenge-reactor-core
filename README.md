@@ -12,10 +12,15 @@
 </p> 
 
 
+# Descripcion general
 
-**Porfavor referirse a commits mas recientes para la solucion actualizada**
+Dentro del código se encuentra un ejemplo para aplicar reactividad con Spring Boot, se cuenta con una herramienta utilitaria para leer archivos CSV, lo que se buscar es aplicar los operadores reactivas para leer este archivo, y se reta para hacer este procedimiento en mongodb.
 
-Dentro del código se encutra un ejemplo para aplicar reactividad con Spring Boot, se cuenta con una herramienta utilitaria para leer archivos CSV, lo que se buscar es aplicar los operadores reactivas para leer este archivo, y se reta para hacer este procedimiento en mongodb.
+
+Se implementan los requerimientos especificados por medio de unitTest:
+- A partir de una lista de datos de jugadores se debe realizar consultas y/o operaciones que permita filtrar y ordenar los jugadores, se debe consultas los jugadores mayores a 34 años, jugadores filtrados por un club especifico.
+- Consular las nacionalidades de los jugadores, crear una lista de las nacionalidades y un rancking de los jugadores por cada pais que se tengan en la lista.
+
 
 Leer las pruebas unitarias.
 
