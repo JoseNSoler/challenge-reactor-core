@@ -1,4 +1,17 @@
-# Challenge reactor-core
+# Challenge reactor-core - solucion en progreso
+
+
+<p align="center">
+<img src="https://www.sofka.com.co/wp-content/uploads/2021/02/sofkau-logo-horizontal.png">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/JoseNSoler/PracticaMVC?style=flat-square"
+</p> 
+
+**Porfavor referirse a commits mas recientes para la solucion actualizada**
 
 Dentro del código se encutra un ejemplo para aplicar reactividad con Spring Boot, se cuenta con una herramienta utilitaria para leer archivos CSV, lo que se buscar es aplicar los operadores reactivas para leer este archivo, y se reta para hacer este procedimiento en mongodb.
 
