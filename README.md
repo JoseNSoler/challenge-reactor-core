@@ -1,4 +1,4 @@
-# Challenge reactor-core - solucion en progreso
+# Challenge reactor-core - solucion en tests
 
 
 <p align="center">
